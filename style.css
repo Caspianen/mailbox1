@@ -1,0 +1,34 @@
+#hugGif {
+  position: fixed;
+  inset: 0;
+  display: none; /* <-- sembunyikan sepenuhnya di awal */
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#hugGif.show {
+  display: flex;
+  opacity: 1;
+}
+
+#hugGif .gifCard {
+  background: transparent;
+  border-radius: 16px;
+  animation: fadePop 0.5s ease;
+}
+
+#hugGif img {
+  width: 220px;
+  height: auto;
+  border-radius: 12px;
+}
+
+@keyframes fadePop {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

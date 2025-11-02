@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Untuk Naraa, Sayangkuuu 💌</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top, #ffe6f9, #dbe8ff, #f7f9ff);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      padding-top: 60px;
+      position: relative;
+    }
+
+    /* Efek bokeh */
+    .bokeh {
+      position:absolute; border-radius:50%;
+      background:rgba(255,255,255,0.3);
+      filter:blur(30px);
+      animation: floatBokeh 10s infinite ease-in-out;
+    }
+    .b1 {width:120px;height:120px;top:20%;left:10%;animation-delay:0s;}
+    .b2 {width:180px;height:180px;top:40%;right:10%;animation-delay:2s;}
+    .b3 {width:100px;height:100px;bottom:10%;left:30%;animation-delay:4s;}
+    @keyframes floatBokeh {
+      0%,100%{transform:translateY(0);opacity:0.6;}
+      50%{transform:translateY(-20px);opacity:0.8;}
+    }
+
+    /* Hati jatuh */
+    .heart {
+      position:absolute;color:#ff6b9c;font-size:20px;
+      animation:fall 6s linear infinite;opacity:0.8;
+    }
+    @keyframes fall {
+      0%{transform:translateY(-10vh)scale(0.9)rotate(0deg);opacity:1;}
+      100%{transform:translateY(110vh)scale(1.3)rotate(360deg);opacity:0;}
+    }
+
+    /* Kotak surat */
+    #mailbox {
+      width:200px;height:120px;
+      background:linear-gradient(90deg,#2e2e2e,#3c3c3c);
+      border-radius:100px 100px 20px 20px;
+      position:relative;cursor:pointer;z-index:3;
+      box-shadow:0 5px 15px rgba(0,0,0,0.25);
+      transition:transform 0.3s;
+    }
+    #mailbox:hover {transform:scale(1.05);}
+    #mailbox::after {
+      content:"";position:absolute;top:0;left:0;width:100%;height:50%;
+      background:#1c1c1c;border-radius:100px 100px 0 0;
+      transform-origin:top;transition:transform 0.6s ease;
+    }
+    #mailbox.open::after {transform:rotateX(180deg);}
+    #mailbox .flag {
+      width:20px;height:40px;background:red;
+      position:absolute;top:20px;right:-25px;border-radius:4px;
+    }
+
+    /* Surat kecil */
+    #letter {
+      width:140px;height:90px;background:#fff;
+      margin-top:-20px;border-radius:10px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.15);
+      opacity:0;transform:translateY(30px);
+      transition:opacity 0.6s,transform 0.6s;cursor:pointer;z-index:3;
+    }
+    #mailbox.open + #letter {opacity:1;transform:translateY(0);}
+
+    p {margin-top:20px;font-weight:500;color:#333;z-index:3;}
+
+    /* Popup surat */
+    #overlay {
+      position:fixed;inset:0;background:rgba(0,0,0,0.55);
+      display:none;justify-content:center;align-items:center;z-index:10;
+    }
+    #overlay.show {display:flex;animation:fadeIn 0.3s ease;}
+
+    #note {
+      background:#fff;border-radius:20px;
+      width:80%;max-width:500px;height:70vh;
+      display:flex;flex-direction:column;
+      padding:25px;box-shadow:0 5px 25px rgba(0,0,0,0.3);
+      animation:popIn 0.4s ease;overflow:hidden;
+    }
+
+    #note h3 {color:#ff4fa4;text-align:center;margin-bottom:10px;}
+    #message {
+      flex:1;overflow-y:auto;margin-bottom:15px;
+      padding-right:10px;text-align:justify;color:#444;line-height:1.6;
+    }
+
+    #note button {
+      margin:6px;padding:10px 20px;border:none;border-radius:10px;
+      background:linear-gradient(to right,#ffb6f3,#ff7ecb);
+      color:white;font-weight:600;cursor:pointer;
+      transition:background 0.3s,transform 0.2s;
+    }
+    #note button:hover {
+      transform:scale(1.05);
+      background:linear-gradient(to right,#ff96e2,#ff63c3);
+    }
+
+    @keyframes popIn {from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+    @keyframes fadeIn {from{opacity:0;}to{opacity:1;}}
+
+    /* GIF pelukan */
+    #hugGif {
+      position:fixed;inset:0;display:none;
+      justify-content:center;align-items:center;
+      background:rgba(0,0,0,0.45);backdrop-filter:blur(5px);
+      z-index:999;opacity:0;transition:opacity 0.4s ease;
+    }
+    #hugGif.show {display:flex;opacity:1;}
+    #hugGif img {
+      width:250px;border-radius:20px;
+      box-shadow:0 0 30px rgba(255,182,193,0.6);
+      animation:pop 0.5s ease;
+    }
+    @keyframes pop {from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+  </style>
+</head>
+<body>
+  <div class="bokeh b1"></div><div class="bokeh b2"></div><div class="bokeh b3"></div>
+  <span class="heart" style="left:15%;animation-delay:0s;">💖</span>
+  <span class="heart" style="left:35%;animation-delay:2s;">💗</span>
+  <span class="heart" style="left:55%;animation-delay:4s;">💞</span>
+  <span class="heart" style="left:75%;animation-delay:1s;">💘</span>
+
+  <div id="mailbox"><div class="flag"></div></div>
+  <div id="letter"></div>
+  <p>Klik kotak surat untuk membuka, lalu klik surat untuk membaca 💌</p>
+
+  <div id="overlay">
+    <div id="note">
+      <h3>Untuk Naraa, Sayangkuuu 💞</h3>
+      <div id="message">
+        Hai Naraa, sayangkuuu 🤍  
+        <br><br>
+        Setiap kali aku mikirin kamu, rasanya dunia berhenti sebentar...  
+        cuma buat ngasih ruang kecil di hatiku yang isinya kamu.  
+        Kamu tahu nggak? Senyummu itu kayak matahari — hangat, tapi juga bikin deg-degan tiap kali aku lihat. ☀️  
+        <br><br>
+        Hari-hari bersamamu tuh kayak mimpi yang nggak mau aku akhiri.  
+        Aku suka cara kamu ngomong, cara kamu ketawa, bahkan diamnya kamu pun bisa bikin aku tenang.  
+        Kadang aku cuma pengen duduk di sampingmu, tanpa kata, tapi tetep ngerasa cukup — karena kamu di situ, sayangkuuu.  
+        <br><br>
+        Kalau suatu hari kamu capek, jangan lupa istirahat ya.  
+        Ada aku yang siap jadi tempat sandar, siap meluk kamu erat biar semua rasa lelahnya hilang pelan-pelan 🤗  
+        <br><br>
+        Kamu itu rumah, Naraa. Tempat aku selalu pengen pulang.  
+        <br><br>
+        Terima kasih udah hadir di hidupku, sayangkuuu —  
+        terima kasih udah bikin semuanya terasa lebih indah, lebih lembut, lebih hidup.  
+        <br><br>
+        Aku cinta kamu, bukan cuma hari ini... tapi setiap hari yang ada aku dan kamu di dalamnya 💖  
+        <br><br>
+        Peluk hangat dan cinta dari aku, untukmu, sayangkuuu 💞
+      </div>
+      <div style="text-align:center;">
+        <button id="hug">Peluk 🤗</button>
+        <button id="close">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="hugGif">
+    <img src="https://i.pinimg.com/originals/26/65/ee/2665eedf2100e60848d7302e8a7ee7d6.gif" alt="Pelukan" />
+  </div>
+
+  <script>
+    const mailbox = document.getElementById("mailbox");
+    const letter = document.getElementById("letter");
+    const overlay = document.getElementById("overlay");
+    const closeBtn = document.getElementById("close");
+    const hugBtn = document.getElementById("hug");
+    const hugGif = document.getElementById("hugGif");
+
+    mailbox.addEventListener("click", ()=>mailbox.classList.toggle("open"));
+    letter.addEventListener("click", e=>{
+      e.stopPropagation();
+      if(mailbox.classList.contains("open")) overlay.classList.add("show");
+    });
+    closeBtn.addEventListener("click", ()=>overlay.classList.remove("show"));
+
+    hugBtn.addEventListener("click", ()=>{
+      hugGif.style.display="flex";
+      setTimeout(()=>hugGif.classList.add("show"),10);
+      setTimeout(()=>{
+        hugGif.classList.remove("show");
+        setTimeout(()=>hugGif.style.display="none",400);
+      },3500);
+    });
+  </script>
+</body>
+</html>
